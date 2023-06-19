@@ -4,4 +4,7 @@
 //
 // on Mac (using Chrome), use Option+Command+J to open the console and see this message.
 
-console.log(new Date());
+const add = require("./add.js");
+const multiply = require("./multiply.js");
+
+console.log(multiply(add(2, 2), 4));
