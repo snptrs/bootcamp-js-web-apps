@@ -1,7 +1,8 @@
 class NotesView {
   constructor(notes) {
     this.notes = notes;
-    this.mainContainer = document.querySelector("#main-container");
+    this.element = document.querySelector("#main-container");
+    console.log(this.element);
   }
 
   displayNotes() {
@@ -9,7 +10,7 @@ class NotesView {
       let div = document.createElement("div");
       div.classList.add("note");
       div.textContent = note;
-      this.mainContainer.append(div);
+      this.element.append(div);
     });
   }
 }

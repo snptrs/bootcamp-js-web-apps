@@ -6,12 +6,12 @@ const fs = require("fs");
 const NotesView = require("./notesView");
 const NotesModel = require("./notesModel");
 
-describe("", () => {
+describe("NotesView", () => {
   beforeEach(() => {
     document.body.innerHTML = fs.readFileSync("./index.html");
   });
 
-  it("displays a title", () => {
+  it("displays notes", () => {
     const model = new NotesModel();
     model.addNote("This is a fascinating note");
     model.addNote("This is a captivating note");
