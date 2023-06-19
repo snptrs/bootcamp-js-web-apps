@@ -11,6 +11,11 @@ class View {
       "This paragraph has been dynamically added by JavaScript!";
     document.querySelector("#main-container").append(newPara);
   }
+
+  clearParagraphs() {
+    const paras = document.querySelectorAll("p");
+    paras.forEach((p) => p.remove());
+  }
 }
 
 module.exports = View;
