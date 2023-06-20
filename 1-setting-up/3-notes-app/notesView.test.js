@@ -23,4 +23,18 @@ describe("NotesView", () => {
       "This is a fascinating note"
     );
   });
+
+  it("adds a note", () => {
+    const model = new NotesModel();
+    const view = new NotesView(model);
+
+    const inputFieldEl = document.querySelector("#note-input");
+    inputFieldEl.value = "A new note";
+
+    const submitButtonEl = document.querySelector("#submit");
+    submitButtonEl.click();
+
+    expect(document.querySelectorAll("div.note").length).toEqual(1);
+    expect(document.querySelector("div.note").textContent).toBe("A new note");
+  });
 });
