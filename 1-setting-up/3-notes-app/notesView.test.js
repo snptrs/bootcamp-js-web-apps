@@ -24,6 +24,20 @@ describe("NotesView", () => {
     );
   });
 
+  it("clears notes before displaying new ones", () => {
+    const model = new NotesModel();
+    model.addNote("This is a fascinating note");
+    model.addNote("This is a captivating note");
+    const view = new NotesView(model);
+    view.displayNotes();
+    view.displayNotes();
+
+    expect(document.querySelectorAll("div.note").length).toBe(2);
+    expect(document.querySelector("div.note").textContent).toBe(
+      "This is a fascinating note"
+    );
+  });
+
   it("adds a note", () => {
     const model = new NotesModel();
     const view = new NotesView(model);

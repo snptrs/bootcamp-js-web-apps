@@ -12,6 +12,11 @@ class NotesView {
   }
 
   displayNotes() {
+    const oldNotes = document.querySelectorAll(".note");
+    oldNotes.forEach((note) => {
+      note.remove();
+    });
+
     this.notes.getNotes().forEach((note) => {
       let div = document.createElement("div");
       div.classList.add("note");
