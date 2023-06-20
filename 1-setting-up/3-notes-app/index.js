@@ -1,10 +1,9 @@
 const NotesModel = require("./notesModel");
 const NotesView = require("./notesView");
+const NotesClient = require("./notesClient");
 
-const notes = new NotesModel();
-notes.addNote("This is an example note");
-notes.addNote("This is another example note");
-// console.log(notes.getNotes());
+const client = new NotesClient();
+const model = new NotesModel();
+const view = new NotesView(model, client);
 
-const view = new NotesView(notes);
-view.displayNotes();
+view.displayNotesFromAPI();

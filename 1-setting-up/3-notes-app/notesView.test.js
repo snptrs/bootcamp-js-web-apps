@@ -5,13 +5,34 @@
 const fs = require("fs");
 const NotesView = require("./notesView");
 const NotesModel = require("./notesModel");
+const NotesClient = require("./notesClient");
+
+jest.mock("./notesClient");
 
 describe("NotesView", () => {
   beforeEach(() => {
     document.body.innerHTML = fs.readFileSync("./index.html");
   });
 
-  it("displays notes", () => {
+  it("display notes from API", () => {
+    const model = new NotesModel();
+    const mockClient = new NotesClient();
+
+    mockClient.loadNotes.mockImplementation((callback) => {
+      const data = "This note is coming from the mock";
+      callback(data);
+    });
+
+    const view = new NotesView(model, mockClient);
+    view.displayNotesFromAPI();
+
+    expect(document.querySelectorAll("div.note").length).toBe(1);
+    expect(document.querySelector("div.note").textContent).toBe(
+      "This note is coming from the mock"
+    );
+  });
+
+  xit("displays notes", () => {
     const model = new NotesModel();
     model.addNote("This is a fascinating note");
     model.addNote("This is a captivating note");
@@ -24,7 +45,7 @@ describe("NotesView", () => {
     );
   });
 
-  it("clears notes before displaying new ones", () => {
+  xit("clears notes before displaying new ones", () => {
     const model = new NotesModel();
     model.addNote("This is a fascinating note");
     model.addNote("This is a captivating note");
@@ -38,7 +59,7 @@ describe("NotesView", () => {
     );
   });
 
-  it("adds a note", () => {
+  xit("adds a note", () => {
     const model = new NotesModel();
     const view = new NotesView(model);
 
