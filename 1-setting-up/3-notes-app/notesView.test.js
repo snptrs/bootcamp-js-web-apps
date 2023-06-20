@@ -50,5 +50,7 @@ describe("NotesView", () => {
 
     expect(document.querySelectorAll("div.note").length).toEqual(1);
     expect(document.querySelector("div.note").textContent).toBe("A new note");
+
+    expect(inputFieldEl.value).toBe("");
   });
 });
