@@ -8,8 +8,7 @@ class NotesModel {
   }
 
   setNotes(data) {
-    console.log(data);
-    this.notes.push(data);
+    this.notes = data;
   }
 
   addNote(note) {

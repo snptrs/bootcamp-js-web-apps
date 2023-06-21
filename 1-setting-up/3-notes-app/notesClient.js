@@ -15,12 +15,8 @@ class NotesClient {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(noteText),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        callback(data);
-      });
+      body: JSON.stringify({ content: noteText }),
+    }).then(() => callback());
   }
 }
 
