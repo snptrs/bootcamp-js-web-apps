@@ -24,14 +24,24 @@ describe("Notes client class", () => {
 
     fetch.mockResponseOnce(
       JSON.stringify({
-        content: "Success",
+        content: "Lorem ipsum",
       })
     );
 
     const noteText = "Lorem ipsum";
 
-    client.createNote(noteText, (returnedDataFromApi) => {
-      expect(returnedDataFromApi.content).toBe("Success");
+    client.createNote(noteText, () => {
+      done();
+    });
+
+    fetch.mockResponseOnce(
+      JSON.stringify({
+        content: "Lorem ipsum",
+      })
+    );
+
+    client.loadNotes((returnedDataFromApi) => {
+      expect(returnedDataFromApi.content).toEqual("Lorem ipsum");
 
       done();
     });
