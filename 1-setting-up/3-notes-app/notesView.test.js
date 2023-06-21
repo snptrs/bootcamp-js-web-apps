@@ -19,7 +19,7 @@ describe("NotesView", () => {
     const mockClient = new NotesClient();
 
     mockClient.loadNotes.mockImplementation((callback) => {
-      const data = "This note is coming from the mock";
+      const data = ["This note is coming from the mock"];
       callback(data);
     });
 
@@ -32,7 +32,7 @@ describe("NotesView", () => {
     );
   });
 
-  xit("displays notes", () => {
+  it("displays notes", () => {
     const model = new NotesModel();
     model.addNote("This is a fascinating note");
     model.addNote("This is a captivating note");
@@ -45,7 +45,7 @@ describe("NotesView", () => {
     );
   });
 
-  xit("clears notes before displaying new ones", () => {
+  it("clears notes before displaying new ones", () => {
     const model = new NotesModel();
     model.addNote("This is a fascinating note");
     model.addNote("This is a captivating note");
@@ -59,9 +59,20 @@ describe("NotesView", () => {
     );
   });
 
-  xit("adds a note", () => {
+  it("adds a note to the backend via the API", () => {
     const model = new NotesModel();
-    const view = new NotesView(model);
+    const mockClient = new NotesClient();
+    const view = new NotesView(model, mockClient);
+
+    mockClient.createNote.mockImplementation((note, callback) => {
+      const data = ["A new note"];
+      callback(data);
+    });
+
+    mockClient.loadNotes.mockImplementation((callback) => {
+      const data = ["A new note"];
+      callback(data);
+    });
 
     const inputFieldEl = document.querySelector("#note-input");
     inputFieldEl.value = "A new note";
