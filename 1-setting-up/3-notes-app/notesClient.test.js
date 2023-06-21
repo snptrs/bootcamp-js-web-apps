@@ -18,4 +18,22 @@ describe("Notes client class", () => {
       done();
     });
   });
+
+  it("adds a new note to the notes backend", (done) => {
+    const client = new NotesClient();
+
+    fetch.mockResponseOnce(
+      JSON.stringify({
+        content: "Success",
+      })
+    );
+
+    const noteText = "Lorem ipsum";
+
+    client.createNote(noteText, (returnedDataFromApi) => {
+      expect(returnedDataFromApi.content).toBe("Success");
+
+      done();
+    });
+  });
 });
