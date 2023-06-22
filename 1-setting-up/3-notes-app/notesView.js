@@ -13,16 +13,26 @@ class NotesView {
   }
 
   displayNotesFromAPI() {
-    this.client.loadNotes((data) => {
-      this.model.setNotes(data);
-      this.displayNotes();
-    });
+    this.client.loadNotes(
+      (data) => {
+        this.model.setNotes(data);
+        this.displayNotes();
+      },
+      () => {
+        this.displayError();
+      }
+    );
   }
 
   displayNotes() {
     const oldNotes = document.querySelectorAll(".note");
     oldNotes.forEach((note) => {
       note.remove();
+    });
+
+    const errorMessage = document.querySelectorAll("#error-message");
+    errorMessage.forEach((message) => {
+      message.remove();
     });
 
     const newNotes = this.model.getNotes();
@@ -33,6 +43,14 @@ class NotesView {
       div.textContent = note;
       this.element.append(div);
     });
+  }
+
+  displayError() {
+    let p = document.createElement("p");
+    let mainContainer = document.querySelector("#main-container");
+    p.id = "error-message";
+    p.textContent = "Ooops, something went wrong!";
+    mainContainer.append(p);
   }
 
   addNote() {

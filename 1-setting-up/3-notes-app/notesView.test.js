@@ -7,6 +7,8 @@ const NotesView = require("./notesView");
 const NotesModel = require("./notesModel");
 const NotesClient = require("./notesClient");
 
+require("jest-fetch-mock").enableMocks();
+
 jest.mock("./notesClient");
 
 describe("NotesView", () => {
@@ -84,5 +86,29 @@ describe("NotesView", () => {
     expect(document.querySelector("div.note").textContent).toBe("A new note");
 
     expect(inputFieldEl.value).toBe("");
+  });
+
+  test(".displayError shows an error when something goes wrong", () => {
+    const model = new NotesModel();
+    const mockClient = new NotesClient();
+    const view = new NotesView(model, mockClient);
+
+    //     fetch.mockReject(() => Promise.reject("API is down"));
+    //
+    //     mockClient.loadNotes.mockImplementation("", () => {
+    //       () => {
+    //         view.displayError();
+    //       };
+    //     });
+
+    // TODO: Not actually testing for the right thing here.
+    // Need to figure out how to mock the fetch failure properly.
+    view.displayError();
+
+    const errorEl = document.querySelector("#error-message");
+
+    expect(document.querySelector("#error-message").textContent).toBe(
+      "Ooops, something went wrong!"
+    );
   });
 });
