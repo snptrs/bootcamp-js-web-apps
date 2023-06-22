@@ -88,6 +88,27 @@ describe("NotesView", () => {
     expect(inputFieldEl.value).toBe("");
   });
 
+  it("removes all notes", () => {
+    const model = new NotesModel();
+    const mockClient = new NotesClient();
+    const view = new NotesView(model, mockClient);
+
+    mockClient.createNote.mockImplementation((note, callback) => {
+      const data = ["A new note"];
+      callback(data);
+    });
+
+    mockClient.loadNotes.mockImplementation((callback) => {
+      const data = ["A new note"];
+      callback(data);
+    });
+
+    const submitButtonEl = document.querySelector("#reset");
+    submitButtonEl.click();
+
+    expect(document.querySelectorAll("div.note").length).toEqual(0);
+  });
+
   test(".displayError shows an error when something goes wrong", () => {
     const model = new NotesModel();
     const mockClient = new NotesClient();

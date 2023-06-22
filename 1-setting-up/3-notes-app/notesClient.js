@@ -19,6 +19,12 @@ class NotesClient {
       body: JSON.stringify({ content: noteText }),
     }).then(() => callback());
   }
+
+  resetNotes(callback) {
+    fetch("http://localhost:3000/notes", {
+      method: "DELETE",
+    }).then(() => callback());
+  }
 }
 
 module.exports = NotesClient;

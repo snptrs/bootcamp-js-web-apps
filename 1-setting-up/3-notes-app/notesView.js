@@ -10,6 +10,11 @@ class NotesView {
       this.addNote();
       this.inputEl.value = "";
     });
+
+    this.submitButtonEl = document.querySelector("#reset");
+    this.submitButtonEl.addEventListener("click", () => {
+      this.resetNotes();
+    });
   }
 
   displayNotesFromAPI() {
@@ -55,6 +60,12 @@ class NotesView {
 
   addNote() {
     this.client.createNote(this.inputEl.value, () => {
+      this.displayNotesFromAPI();
+    });
+  }
+
+  resetNotes() {
+    this.client.resetNotes(() => {
       this.displayNotesFromAPI();
     });
   }
